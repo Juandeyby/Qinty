@@ -1,1 +1,1 @@
-# boobytes
+# Qinty website
