@@ -7,45 +7,26 @@ const CopyPlugin = require('copy-webpack-plugin');
 module.exports = {
    optimization: {
       minimizer: [
-        new OptimizeCssAssetsPlugin({
-         cssProcessorPluginOptions: {
-            preset: ['default', { discardComments: { removeAll: true } }],
-         }
-        })
+         new OptimizeCssAssetsPlugin({
+            cssProcessorPluginOptions: {
+               preset: ['default', { discardComments: { removeAll: true } }],
+            }
+         })
       ]
-    },
-    plugins: [
+   },
+   plugins: [
       new MiniCSSExtractPlugin({
          filename: "style.css",
       }),
       new HtmlWebpackPlugin({
          filename: 'index.html',
          template: 'src/index.html'
-      }),
-      new CopyPlugin([
-         {
-            from: '.htaccess',
-            to: '.htaccess',
-            toType: 'file'
-         },
-         {
-            from: 'LICENSE_dist',
-            to: 'LICENSE',
-            toType: 'file'
-         }
-      ])
+      })
    ],
    module: {
       rules: [
          {
             test: /\.css$/,
-            loader: [
-               MiniCSSExtractPlugin.loader,
-               "css-loader"
-            ]
-         },
-         {
-            test: /\.htaccess$/,
             loader: [
                MiniCSSExtractPlugin.loader,
                "css-loader"
@@ -60,6 +41,28 @@ module.exports = {
                      outputPath: './images'
                   },
                },
+               {
+                  loader: 'image-webpack-loader',
+                  options: {
+                     mozjpeg: {
+                        progressive: true,
+                        quality: 70
+                     },
+                     optipng: {
+                        enabled: false,
+                     },
+                     pngquant: {
+                        quality: '65-90',
+                        speed: 4
+                     },
+                     gifsicle: {
+                        interlaced: false,
+                     },
+                     webp: {
+                        quality: 75
+                     }
+                  }
+               }
             ]
          },
          {
@@ -70,7 +73,7 @@ module.exports = {
                   options: {
                      outputPath: './fonts'
                   },
-               },
+               }
             ]
          }
       ]

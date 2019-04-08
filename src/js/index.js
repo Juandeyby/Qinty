@@ -1,6 +1,7 @@
 import '../../node_modules/purecss/build/pure.css';
 import '../../node_modules/purecss/build/grids.css';
 import '../css/styles.css';
+import '../images/water-1920.jpg';
 require('typeface-b612-mono');
 
 class miClase {
